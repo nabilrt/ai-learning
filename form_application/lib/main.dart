@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:form_application/counter_page.dart';
+import 'package:form_application/settings.dart';
 
 void main() {
   runApp(const MyForm());
@@ -25,7 +27,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int counter = 0;
+ 
+  int currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -33,21 +36,31 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("Form Application"),
       ),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("You have clicked $counter times"),
-          const SizedBox(height: 20),
-          ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  counter++;
-                });
-              },
-              child: const Text("Click Me"))
+      body: getBody(),
+      bottomNavigationBar: NavigationBar(
+        destinations: const [
+          NavigationDestination(
+              icon: Icon(Icons.lock_clock_rounded), label: "Counter"),
+          NavigationDestination(icon: Icon(Icons.settings), label: "Settings"),
         ],
-      )),
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPage = index;
+          });
+        },
+        selectedIndex: currentPage,
+      ),
     );
+  }
+
+  Widget getBody() {
+    switch (currentPage) {
+      case 0:
+        return const Counter();
+      case 1:
+        return const Settings();
+      default:
+        return const Counter();
+    }
   }
 }
