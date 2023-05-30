@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_application/auth.dart';
 
 class Counter extends StatefulWidget {
   const Counter({super.key});
@@ -8,23 +9,29 @@ class Counter extends StatefulWidget {
 }
 
 class _CounterState extends State<Counter> {
-   int counter = 0;
+  int counter = 0;
   @override
   Widget build(BuildContext context) {
     return Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("You have clicked $counter times"),
-          const SizedBox(height: 20),
-          ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  counter++;
-                });
-              },
-              child: const Text("Click Me"))
-        ],
-      ));
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("You have clicked $counter times"),
+        const SizedBox(height: 20),
+        ElevatedButton(
+            onPressed: () {
+              setState(() {
+                counter++;
+              });
+            },
+            child: const Text("Click Me")),
+        const SizedBox(height: 20),
+        ElevatedButton(
+            onPressed: () {
+              Auth().signOut();
+            },
+            child: const Text("Sign Out"))
+      ],
+    ));
   }
 }
